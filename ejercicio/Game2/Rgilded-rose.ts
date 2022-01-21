@@ -10,7 +10,6 @@ export class Item {
     }
 }
 
-
 export class GildedRose {
     
     items: Array<Item>;
@@ -21,46 +20,97 @@ export class GildedRose {
 
     updateQuality() {
         for (let item of this.items) {
-          
-            function AjustesCalidad(item){
-                let itemCalidad = 0;
-                if (items.name === 'Aged Brie') {
-                  itemcalidad += 1;
-                  if (item.sellIn < 0) {
-                    itemcalidad += 1;
-                    }
-                } else if(items.name === 'Backstage passes to a TAFKAL80ETC concert')  {
-                    if (this.items.sellIn < 11) {
-                        itemcalidad = 2;
-                    }
-                    if (this.items.sellIn < 6) {
-                        itemcalidad = 3;
-                    }
-                    if (item.sellIn < 0) {
-                        itemcalidad -= item.quality;
-                        }
-                } else if(items.name === 'Conjured'){
-                    itemcalidad -= 2;
-                    if (item.sellIn < 0) {
-                      itemcalidad -= 2;
-                      }
-                }else if(items.name === 'Sulfuras, Hand of Ragnaros'){
-                    //no se realiza cambio
-                    item.sellIn -= 1;
-                    item.quality = 80;
-                }
-         
-            }
-
-        
-
-       
+            ObtenerProductos(item); 
     }
     return this.items;
 
     }
 
  
+}
+
+function ObtenerProductos(item){
+    const sulfurasFactory = new SulfurasFactory();
+    const agedBrieFactory = new AgedBrieFactory();
+    const backstagepassesFactory = new BackstagepassesFactory();
+    const conjuredFactory = new ConjuredFactory();
+
+    switch (item) {
+        case item.equals("Aged Brie"):
+            return agedBrieFactory;
+            break;
+
+            case item.equals("Backstage passes to a TAFKAL80ETC concert"):
+            return backstagepassesFactory;
+            break;
+    
+            case item.equals("Conjured"):
+                return conjuredFactory;
+                break;
+
+            case item.equals("Sulfuras, Hand of Ragnaros"):
+                return sulfurasFactory;
+                break;
+    }
+}
+
+class Generales {
+
+
+    CalidadMinima(){
+      return 0;
+    }
+  
+    CalidadMaxima(){
+      return 50;
+    }
+  
+    definirCalidad(item: any){
+        let calidad =0;
+        if(item.quality < 0){
+            calidad =    this.CalidadMinima();
+        } else if(item.quality > 50){
+            calidad =  this.CalidadMaxima();
+        }
+        return calidad;
+    }
+  
+  }
+
+class AgedBrieFactory implements Generales{
+    itemcalidad += 1;
+    if (this.sellIn < 0) {
+      itemcalidad += 1;
+      }
+  definirCalidad(itemcalidad);
+}
+
+class BackstagepassesFactory implements Generales{
+    if (this.sellIn < 11) {
+        itemcalidad = 2;
+    }
+    if (this.sellIn < 6) {
+        itemcalidad = 3;
+    }
+    if (this.sellIn < 0) {
+        itemcalidad -= this.quality;
+        }
+        definirCalidad(itemcalidad);
+}
+
+class ConjuredFactory implements Generales{
+
+    itemcalidad -= 2;
+    if (this.sellIn < 0) {
+      itemcalidad -= 2;
+      }
+      definirCalidad(itemcalidad);
+}
+
+class SulfurasFactory implements Generales{
+    //no se realiza cambio
+    this.sellIn -= 1;
+    this.quality = 80;
 }
 
 
