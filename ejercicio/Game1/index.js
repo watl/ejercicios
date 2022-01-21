@@ -1,17 +1,6 @@
 $(function () {
 
-    $(document).on("click", "#btnApl", function (evt) {
-  
-     //recibir valores
-    let arregloString = $("#txt1").val();
-    let valorN = $("#txt2").val();
-
-     //Ejecutar funcion
-     let result = ConjuntoNumeros(arregloString,valorN);
-     $("#Textarea1").val(result);
-    });
-
-    function ConjuntoNumeros(arregloString,valorN){
+     function ConjuntoNumeros(arregloString,valorN){
         /*
         * se obtiene valores string y se convierte a tipo array
         * con la funcion {map} se realiza el cambio de string tipo number
